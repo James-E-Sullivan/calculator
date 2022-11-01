@@ -1,0 +1,27 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alignment-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.calc-btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+button {
+    height: 64px;
+    width: 64px;
+    margin: 4px;
+}
