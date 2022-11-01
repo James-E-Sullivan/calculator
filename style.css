@@ -37,8 +37,9 @@ body {
     justify-content: flex-end;
     align-items: center;
     flex: auto;
-    border: 1px inset black;
-    width: 290px;
+    border: 2px solid black;
+    border-radius: 6px;
+    width: 288px;
     margin: 8px;
     background-color: whitesmoke;
 }
