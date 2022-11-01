@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Digital-7 Mono';
+    src: url('Digital-7Mono.woff2') format('woff2'),
+        url('Digital-7Mono.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 html, body {
     height: 100%;
 }
@@ -8,6 +17,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #2d274e;
+    color: #b9bbbd;
 }
 
 .alignment-container {
@@ -26,6 +36,7 @@ body {
     border-radius: 16px;
     padding: 8px;
     background-color: #a79d97;
+    box-shadow: 8px 8px 8px black;
 }
 
 .display {
@@ -36,12 +47,13 @@ body {
     border: 1px inset black;
     width: 290px;
     margin: 8px;
-    background-color: white;
+    background-color: whitesmoke;
 }
 
 .display-content {
     font-size: 28px;
     margin: 4px;
+    color: black;
 }
 
 .calc-btn-container {
@@ -60,6 +72,7 @@ button {
     margin: 6px;
     font-size: 24px;
     font-weight: 600;
+    border-width: 3px;
     border-radius: 8px;
 }
 
