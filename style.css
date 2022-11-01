@@ -17,6 +17,7 @@ body {
 #calculator-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 320px;
     height: 450px;
 }
@@ -24,6 +25,7 @@ body {
 .display {
     flex: auto;
     border: 1px solid black;
+    width: 290px;
 }
 
 .calc-btn-container {
@@ -42,7 +44,6 @@ button {
     height: 64px;
     width: 64px;
     margin: 6px;
-    box-sizing: border-box;
 }
 
 [id='0'] {
