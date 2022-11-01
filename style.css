@@ -23,10 +23,18 @@ body {
 }
 
 .display {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     flex: auto;
     border: 1px solid black;
     width: 290px;
     margin: 8px;
+}
+
+.display-content {
+    font-size: 28px;
+    margin: 4px;
 }
 
 .calc-btn-container {
