@@ -18,11 +18,12 @@ body {
     display: flex;
     flex-direction: column;
     width: 320px;
-    height: 400px;
+    height: 450px;
 }
 
 .display {
     flex: auto;
+    border: 1px solid black;
 }
 
 .calc-btn-container {
