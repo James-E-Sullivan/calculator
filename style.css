@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    margin: 0;
 }
 
 body {
@@ -84,4 +85,18 @@ button {
 .calc-btn {
     background-color: #876867;
     color: #b9bbbd;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    background-color: rgb(24, 24, 24);
+    color: #b9bbbd;
+    width: 100%;
+}
+
+.footer-element {
+    margin: 16px;
 }
