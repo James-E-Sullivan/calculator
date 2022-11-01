@@ -26,18 +26,17 @@ body {
     flex: auto;
     border: 1px solid black;
     width: 290px;
+    margin: 8px;
 }
 
 .calc-btn-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    flex: auto;
 }
 
 .btn-row {
     display: flex;
-    justify-content: center;
+    flex: auto;
 }
 
 button {
