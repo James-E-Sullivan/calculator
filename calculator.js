@@ -100,7 +100,6 @@ function handleClear() {
 }
 
 function handleEquals() {
-
     // operation has a value in operandA but no operator
     if (currentOperation.hasOperandA() && !(currentOperation.hasOperator())) {
         if (operationStack.length > 0) {  // there's at least one previous operation
@@ -127,10 +126,6 @@ function handleEquals() {
 }
 
 function performOperation() {
-
-    console.log("Operation at its performance:")
-    console.log(currentOperation);
-
     // perform operation, set currentOperation to new Operation, and update display
     let numberResult = currentOperation.operateExpression()
     operationStack.push(currentOperation);
