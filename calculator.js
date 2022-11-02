@@ -76,7 +76,12 @@ function handleUserInput(input) {
 function handleOperator(operatorInput) {
     // load inputQueue as operandA only if not empty
     if (inputQueue.length > 0) {
-        currentOperation.loadOperandA(inputQueue);
+        if (currentOperation.hasOperandA() && currentOperation.hasOperator()) {
+            currentOperation.loadOperandB(inputQueue);
+            performOperation();
+        } else {
+            currentOperation.loadOperandA(inputQueue);
+        }
         inputQueue.length = 0; // clear array
     }
     currentOperation.operator = operatorInput;
