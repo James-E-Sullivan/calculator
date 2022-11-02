@@ -124,17 +124,24 @@ function addToInputQueue(input) {
 // display object
 const displayContent = document.getElementById('display-content');
 
-// array used to store currently displayed value
-let currentlyDisplayed = [];
+// Display class used to store information about/update the display
+class Display {
+    constructor(displayString, displayElement, isAnswer=false) {
+        this.displayString = displayString;
+        this.displayElement = displayElement;
+        this.isAnswer = isAnswer;
+    }
 
-// array used to store previously displayed value
-let previouslyDisplayed = [];
+    updateDisplay(displayString, isAnswer=false) {
+        this.displayString = displayString;
+        this.isAnswer = isAnswer;
+        this.displayElement.innerText = this.displayString;
+    }
 
-// array used to store inputs prior to evaluation
-let inputQueue = [];
-
-// array used to store previous operations
-let operationStack = [];
+    isAnswerDisplayed() {
+        return this.isAnswer;
+    }
+}
 
 class Operation {
     constructor(operator, operandA, operandB) {
@@ -148,8 +155,12 @@ class Operation {
     }
 }
 
+// set global variables on page load
 let currentOperation = new Operation();
-
+let currentDisplay = new Display();
+let previouslyDisplayed = []; // array used to store previously displayed value
+let inputQueue = []; // array used to store inputs prior to evaluation
+let operationStack = []; // array used to store previous operations
 
 // start on page load
 getNumberInput();
