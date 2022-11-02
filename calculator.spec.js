@@ -79,3 +79,21 @@ describe('divide', () => {
         expect(calculator.divide("string", 8)).toBe("ERROR: NOT A NUMBER");
     });
 });
+
+describe('operate', () => {
+    test('operate add function', () => {
+        expect(calculator.operate("add", 7, 5)).toBe(12);
+    });
+
+    test('operate subtract function', () => {
+        expect(calculator.operate("subtract", 7, 5)).toBe(2);
+    });
+
+    test('operate multiply function', () => {
+        expect(calculator.operate("multiply", 7, 5)).toBe(35);
+    });
+
+    test('operate divide function', () => {
+        expect(calculator.operate("divide", 32, 4)).toBe(8);
+    });
+});
