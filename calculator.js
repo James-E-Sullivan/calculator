@@ -89,12 +89,6 @@ function handleUserInput(input) {
     }
 }
 
-function unloadInputQueue() {
-    while (inputQueue.length > 0) {
-        previouslyDisplayed.push(inputQueue.shift());
-    }
-}
-
 function handleNegation() {
     if (inputQueue[0] === "-") {
         inputQueue.shift();  // remove negative sign if present
