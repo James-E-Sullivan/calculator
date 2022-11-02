@@ -61,6 +61,7 @@ function handleUserInput(input) {
             case "add": case "subtract": case "multiply": case "divide":
                 unloadInputQueue();
                 currentOperation.operandA = parseInt(previouslyDisplayed.join(''));
+                previouslyDisplayed = [];
                 currentOperation.operator = input;
                 break;
             
@@ -79,8 +80,12 @@ function handleUserInput(input) {
             case "equals":
                 unloadInputQueue();
                 currentOperation.operandB = parseInt(previouslyDisplayed.join(''));
+                previouslyDisplayed = [];
                 console.log(currentOperation);
                 let resultNumber = currentOperation.operateExpression();
+                operationStack.push(currentOperation);
+                currentOperation = new Operation();
+                currentOperation.operandA = resultNumber;
                 displayAnswer(resultNumber.toString());
 
         }
