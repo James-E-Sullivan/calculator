@@ -54,7 +54,7 @@ function handleUserInput(input) {
 
     if (!isNaN(parseInt(input))){
         console.log(input);
-        addToInputQueue(input);
+        inputQueue.push(input);
         currentDisplay.updateDisplay(inputQueue.join(''));
     } else {
         switch (input) {
@@ -99,9 +99,6 @@ function handleNegation() {
     updateDisplay();
 }
 
-function addToInputQueue(input) {
-    inputQueue.push(input);
-}
 
 // display object
 const displayContentDiv = document.getElementById('display-content');
