@@ -59,9 +59,8 @@ function handleUserInput(input) {
     } else {
         switch (input) {
             case "add": case "subtract": case "multiply": case "divide":
-                unloadInputQueue();
-                currentOperation.operandA = parseInt(previouslyDisplayed.join(''));
-                previouslyDisplayed = [];
+                currentOperation.loadOperandA(inputQueue);
+                inputQueue.length = 0; // clear array
                 currentOperation.operator = input;
                 break;
             
@@ -70,7 +69,7 @@ function handleUserInput(input) {
                 previouslyDisplayed = [];
                 inputQueue = [];
                 operationStack = [];
-                updateDisplay();
+                currentDisplay.updateDisplay('');
                 break;
             
             case "negate":
@@ -78,29 +77,17 @@ function handleUserInput(input) {
                 break;
             
             case "equals":
-                unloadInputQueue();
-                currentOperation.operandB = parseInt(previouslyDisplayed.join(''));
-                previouslyDisplayed = [];
+                loadOperandB(inputQueue);
+                inputQueue.length = 0; // clear array
                 console.log(currentOperation);
                 let resultNumber = currentOperation.operateExpression();
                 operationStack.push(currentOperation);
                 currentOperation = new Operation();
                 currentOperation.operandA = resultNumber;
-                displayAnswer(resultNumber.toString());
-
+                currentDisplay.updateDisplay(resultNumber.toString(), true);
         }
     }
 }
-
-function updateDisplay() {
-    const displayString = inputQueue.join('');
-    displayContentDiv.innerText = displayString;
-}
-
-function displayAnswer(answerString) {
-    displayContentDiv.innerText = answerString;
-}
-
 
 function unloadInputQueue() {
     while (inputQueue.length > 0) {
@@ -152,6 +139,14 @@ class Operation {
 
     operateExpression() {
         return operate(this.operator, this.operandA, this.operandB);
+    }
+
+    loadOperandA(inputArray) {
+        this.operandA = parseInt(this.inputArray.join(''));
+    }
+
+    loadOperandB(inputArray) {
+        this.operandB = parseInt(this.inputArray.join(''));
     }
 }
 
