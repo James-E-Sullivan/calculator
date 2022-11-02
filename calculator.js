@@ -74,6 +74,10 @@ function handleUserInput(input) {
             case "decimal":
                 handleDecimal();
                 break;
+
+            case "undo":
+                handleUndo();
+                break;
         }
     }
 }
@@ -141,11 +145,6 @@ function handleEquals() {
 }
 
 function handleDecimal() {
-
-    console.log("Before decimal is handled")
-    console.table(inputQueue);
-    console.log(currentOperation);
-
     // if inputQueue has no decimal in it
     if (!(inputQueue.some(value => value === "."))) {
         inputQueue.push(".");
@@ -155,6 +154,23 @@ function handleDecimal() {
     console.log("After decimal is handled")
     console.table(inputQueue);
     console.log(currentOperation);
+}
+
+function handleUndo() {
+    // if an operator button is pressed, undo button removes operator from Operation
+    if (currentOperation.hasOperator()) {
+        currentOperation.operator = null;
+        currentDisplay.updateDisplay(currentOperation.operandA);
+    } else if (operationStack.length > 0) { // reset to last operation
+        currentOperation = operationStack.pop();
+        currentOperation.operandB = null;
+        currentOperation.operator = null;
+        currentDisplay.updateDisplay(currentOperation.operandA);
+        inputQueue.length = 0;
+    } else { // no previous operations - just remove what is on the display
+        inputQueue.length = 0;
+        currentDisplay.updateDisplay('');
+    }
 }
 
 function performOperation() {
@@ -213,15 +229,15 @@ class Operation {
     }
 
     hasOperator() {
-        return !(this.operator === undefined);
+        return !(this.operator == null);
     }
 
     hasOperandA() {
-        return !(this.operandA === undefined);
+        return !(this.operandA == null);
     }
 
     hasOperandB() {
-        return !(this.operandB === undefined);
+        return !(this.operandB == null);
     }
 }
 

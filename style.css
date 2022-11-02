@@ -88,6 +88,10 @@ button {
     color: #b9bbbd;
 }
 
+#undo {
+    font-size: 18px;
+}
+
 .footer {
     display: flex;
     justify-content: center;
