@@ -55,7 +55,7 @@ function handleUserInput(input) {
     if (!isNaN(parseInt(input))){
         console.log(input);
         addToInputQueue(input);
-        updateDisplay();
+        currentDisplay.updateDisplay(inputQueue.join(''));
     } else {
         switch (input) {
             case "add": case "subtract": case "multiply": case "divide":
@@ -94,11 +94,11 @@ function handleUserInput(input) {
 
 function updateDisplay() {
     const displayString = inputQueue.join('');
-    displayContent.innerText = displayString;
+    displayContentDiv.innerText = displayString;
 }
 
 function displayAnswer(answerString) {
-    displayContent.innerText = answerString;
+    displayContentDiv.innerText = answerString;
 }
 
 
@@ -122,7 +122,7 @@ function addToInputQueue(input) {
 }
 
 // display object
-const displayContent = document.getElementById('display-content');
+const displayContentDiv = document.getElementById('display-content');
 
 // Display class used to store information about/update the display
 class Display {
@@ -157,7 +157,7 @@ class Operation {
 
 // set global variables on page load
 let currentOperation = new Operation();
-let currentDisplay = new Display();
+let currentDisplay = new Display('', displayContentDiv);
 let previouslyDisplayed = []; // array used to store previously displayed value
 let inputQueue = []; // array used to store inputs prior to evaluation
 let operationStack = []; // array used to store previous operations
