@@ -76,7 +76,7 @@ function handleUserInput(input) {
 }
 
 function updateDisplay() {
-    const displayString = inputQueue.toString();
+    const displayString = inputQueue.join('');
     displayContent.innerText = displayString;
 }
 
