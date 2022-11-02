@@ -52,15 +52,17 @@ function getNumberInput() {
 
 function handleUserInput(input) {
 
-    if (!isNaN(parseInt(input))){
-        console.log(input);
+    if (!isNaN(parseInt(input))){  // input is a number
         inputQueue.push(input);
         currentDisplay.updateDisplay(inputQueue.join(''));
     } else {
         switch (input) {
             case "add": case "subtract": case "multiply": case "divide":
-                currentOperation.loadOperandA(inputQueue);
-                inputQueue.length = 0; // clear array
+                // load inputQueue as operandA only if there are values there
+                if (inputQueue.length > 0) {
+                    currentOperation.loadOperandA(inputQueue);
+                    inputQueue.length = 0; // clear array
+                }
                 currentOperation.operator = input;
                 break;
             
@@ -69,6 +71,7 @@ function handleUserInput(input) {
                 inputQueue.length = 0;
                 operationStack.length = 0;
                 currentDisplay.updateDisplay('');
+                currentOperation = new Operation();
                 break;
             
             case "negate":
@@ -87,7 +90,7 @@ function handleNegation() {
     } else {
         inputQueue.unshift("-"); // add negative sign if absent
     }
-    updateDisplay();
+    currentDisplay.updateDisplay(inputQueue.join(''));
 }
 
 function handleEquals() {
