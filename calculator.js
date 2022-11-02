@@ -78,14 +78,7 @@ function handleUserInput(input) {
                 break;
             
             case "equals":
-                currentOperation.loadOperandB(inputQueue);
-                inputQueue.length = 0; // clear array
-                console.log(currentOperation);
-                let resultNumber = currentOperation.operateExpression();
-                operationStack.push(currentOperation);
-                currentOperation = new Operation();
-                currentOperation.operandA = resultNumber;
-                currentDisplay.updateDisplay(resultNumber.toString(), true);
+                handleEquals();
         }
     }
 }
@@ -113,10 +106,12 @@ function handleEquals() {
             performOperation();
         }
     } else if (currentOperation.hasOperandA && currentOperation.hasOperator) {
-        // operation has both operands and an operator
-        if (currentOperation.hasOperandB) {
+        // operation operandA and an operator, and inputQueue has input values
+        if (inputQueue.length > 0) {
+            currentOperation.loadOperandB(inputQueue);
+            inputQueue.length = 0;  // clear inputQueue
             performOperation();
-        } else { // only operandB is missing
+        } else { // inputQueue is empty
             currentOperation.operandB = currentOperation.operandA;
             performOperation();
         }
