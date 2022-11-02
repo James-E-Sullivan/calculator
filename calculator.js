@@ -69,9 +69,11 @@ function handleUserInput(input) {
             
             case "equals":
                 handleEquals();
+                break;
 
             case "decimal":
                 handleDecimal();
+                break;
         }
     }
 }
