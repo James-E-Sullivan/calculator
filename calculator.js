@@ -62,6 +62,7 @@ function handleUserInput(input) {
                 currentOperation.loadOperandA(inputQueue);
                 inputQueue.length = 0; // clear array
                 currentOperation.operator = input;
+                console.log(currentOperation);
                 break;
             
             case "clear":
@@ -77,7 +78,7 @@ function handleUserInput(input) {
                 break;
             
             case "equals":
-                loadOperandB(inputQueue);
+                currentOperation.loadOperandB(inputQueue);
                 inputQueue.length = 0; // clear array
                 console.log(currentOperation);
                 let resultNumber = currentOperation.operateExpression();
@@ -136,11 +137,11 @@ class Operation {
     }
 
     loadOperandA(inputArray) {
-        this.operandA = parseInt(this.inputArray.join(''));
+        this.operandA = parseInt(inputArray.join(''));
     }
 
     loadOperandB(inputArray) {
-        this.operandB = parseInt(this.inputArray.join(''));
+        this.operandB = parseInt(inputArray.join(''));
     }
 }
 
