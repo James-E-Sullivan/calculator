@@ -139,11 +139,20 @@ function handleEquals() {
 }
 
 function handleDecimal() {
+
+    console.log("Before decimal is handled")
+    console.table(inputQueue);
+    console.log(currentOperation);
+
     // if inputQueue has no decimal in it
     if (!(inputQueue.some(value => value === "."))) {
         inputQueue.push(".");
         currentDisplay.updateDisplay(inputQueue.join(''));
     }
+
+    console.log("After decimal is handled")
+    console.table(inputQueue);
+    console.log(currentOperation);
 }
 
 function performOperation() {
@@ -186,11 +195,19 @@ class Operation {
     }
 
     loadOperandA(inputArray) {
-        this.operandA = parseInt(inputArray.join(''));
+        if (!(inputQueue.some(value => value === "."))) {
+            this.operandA = parseInt(inputArray.join(''));
+        } else {
+            this.operandA = parseFloat(inputArray.join(''));
+        }
     }
 
     loadOperandB(inputArray) {
-        this.operandB = parseInt(inputArray.join(''));
+        if (!(inputQueue.some(value => value === "."))) {
+            this.operandB = parseInt(inputArray.join(''));
+        } else {
+            this.operandB = parseFloat(inputArray.join(''));
+        }
     }
 
     hasOperator() {
