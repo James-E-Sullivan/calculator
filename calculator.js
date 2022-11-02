@@ -67,6 +67,7 @@ function handleUserInput(input) {
                 previouslyDisplayed = [];
                 inputQueue = [];
                 operationStack = [];
+                updateDisplay();
                 break;
             
             case "negate":
@@ -104,16 +105,16 @@ function addToInputQueue(input) {
 const displayContent = document.getElementById('display-content');
 
 // array used to store currently displayed value
-const currentlyDisplayed = [];
+let currentlyDisplayed = [];
 
 // array used to store previously displayed value
-const previouslyDisplayed = [];
+let previouslyDisplayed = [];
 
 // array used to store inputs prior to evaluation
-const inputQueue = [];
+let inputQueue = [];
 
 // array used to store previous operations
-const operationStack = [];
+let operationStack = [];
 
 class Operation {
     constructor(operator, operandA, operandB) {
