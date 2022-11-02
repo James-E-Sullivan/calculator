@@ -69,6 +69,9 @@ function handleUserInput(input) {
             
             case "equals":
                 handleEquals();
+
+            case "decimal":
+                handleDecimal();
         }
     }
 }
@@ -133,6 +136,14 @@ function handleEquals() {
             performOperation();
         }
     }  // all other instances, do nothing
+}
+
+function handleDecimal() {
+    // if inputQueue has no decimal in it
+    if (!(inputQueue.some(value => value === "."))) {
+        inputQueue.push(".");
+        currentDisplay.updateDisplay(inputQueue.join(''));
+    }
 }
 
 function performOperation() {
