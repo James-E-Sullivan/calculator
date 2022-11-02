@@ -1,22 +1,22 @@
 // arithmetic functions
 function add(a, b) {
-    if (isNaN(a) || isNaN(b)) return "ERROR: NOT A NUMBER";
+    if (isNaN(a) || isNaN(b)) return "ERROR: NaN";
     return a + b;
 }
 
 function subtract(a, b) {
-    if (isNaN(a) || isNaN(b)) return "ERROR: NOT A NUMBER";
+    if (isNaN(a) || isNaN(b)) return "ERROR: NaN";
     return a - b;
 }
 
 function multiply(a, b) {
-    if (isNaN(a) || isNaN(b)) return "ERROR: NOT A NUMBER";
+    if (isNaN(a) || isNaN(b)) return "ERROR: NaN";
     return a * b;
 }
 
 function divide(a, b) {
-    if (isNaN(a) || isNaN(b)) return "ERROR: NOT A NUMBER";
-    if (a === 0 || b === 0) return "DIVIDE BY ZERO ERROR";
+    if (isNaN(a) || isNaN(b)) return "ERROR: NaN";
+    if (a === 0 || b === 0) return "ERROR: DIV BY 0";
     return a / b;
 }
 
@@ -32,6 +32,8 @@ function operate(operator, a, b) {
             return divide(a,b);
     }
 }
+
+
 
 
 // eventListener handling functions
@@ -53,7 +55,7 @@ function handleUserInput(input) {
     } else {
         switch (input) {
             case "add": case "subtract": case "multiply": case "divide":
-                handleOperator();
+                handleOperator(input);
                 break;
             
             case "clear":
@@ -71,13 +73,13 @@ function handleUserInput(input) {
     }
 }
 
-function handleOperator() {
+function handleOperator(operatorInput) {
     // load inputQueue as operandA only if not empty
     if (inputQueue.length > 0) {
         currentOperation.loadOperandA(inputQueue);
         inputQueue.length = 0; // clear array
     }
-    currentOperation.operator = input;
+    currentOperation.operator = operatorInput;
 }
 
 function handleNegation() {
@@ -190,11 +192,12 @@ class Operation {
 
 
 // set global variables on page load
+const displayContentDiv = document.getElementById('display-content'); 
 let currentOperation = new Operation();
 let currentDisplay = new Display('', displayContentDiv);
 let inputQueue = []; // array used to store inputs prior to evaluation
 let operationStack = []; // array used to store previous operations
-const displayContentDiv = document.getElementById('display-content'); 
+
 
 // start eventListener on page load
 getNumberInput();
