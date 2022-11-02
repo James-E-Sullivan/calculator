@@ -88,12 +88,17 @@ function handleOperator(operatorInput) {
 }
 
 function handleNegation() {
-    if (inputQueue[0] === "-") {
-        inputQueue.shift();  // remove negative sign if present
+    if (currentDisplay.isAnswerDisplayed()) {
+        currentOperation.operandA *= -1;
+        currentDisplay.updateDisplay(currentOperation.operandA, true);
     } else {
-        inputQueue.unshift("-"); // add negative sign if absent
+        if (inputQueue[0] === "-") {
+            inputQueue.shift();  // remove negative sign if present
+        } else {
+            inputQueue.unshift("-"); // add negative sign if absent
+        }
+        currentDisplay.updateDisplay(inputQueue.join(''));
     }
-    currentDisplay.updateDisplay(inputQueue.join(''));
 }
 
 function handleClear() {
