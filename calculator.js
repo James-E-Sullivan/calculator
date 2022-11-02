@@ -109,14 +109,27 @@ function handleEquals() {
             currentOperation.operator = prevOperation.operator;
             currentOperation.operandB = prevOperation.operandB;
 
-            // perform operation, set currentOperation to new Operation, and update display
-            let numberResult = currentOperation.operateExpression()
-            operationStack.push(currentOperation);
-            currentOperation = new Operation();
-            currentOperation.operandA = numberResult;
-            currentDisplay.updateDisplay(numberResult.toString(), true);
+            // perform operation now that the operator and operands are set
+            performOperation();
         }
-    }
+    } else if (currentOperation.hasOperandA && currentOperation.hasOperator) {
+        // operation has both operands and an operator
+        if (currentOperation.hasOperandB) {
+            performOperation();
+        } else { // only operandB is missing
+            currentOperation.operandB = currentOperation.operandA;
+            performOperation();
+        }
+    }  // all other instances, do nothing
+}
+
+function performOperation() {
+    // perform operation, set currentOperation to new Operation, and update display
+    let numberResult = currentOperation.operateExpression()
+    operationStack.push(currentOperation);
+    currentOperation = new Operation();
+    currentOperation.operandA = numberResult;
+    currentDisplay.updateDisplay(numberResult.toString(), true);
 }
 
 
