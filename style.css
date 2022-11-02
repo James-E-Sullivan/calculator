@@ -44,7 +44,7 @@ body {
     background-color: whitesmoke;
 }
 
-.display-content {
+#display-content {
     font-size: 28px;
     margin: 4px;
     color: black;
