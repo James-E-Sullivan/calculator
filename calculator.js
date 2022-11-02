@@ -62,14 +62,14 @@ function handleUserInput(input) {
                 currentOperation.loadOperandA(inputQueue);
                 inputQueue.length = 0; // clear array
                 currentOperation.operator = input;
+
                 console.log(currentOperation);
                 break;
             
             case "clear":
-                currentlyDisplayed = [];
-                previouslyDisplayed = [];
-                inputQueue = [];
-                operationStack = [];
+                // clear display and all data structures
+                inputQueue.length = 0;
+                operationStack.length = 0;
                 currentDisplay.updateDisplay('');
                 break;
             
@@ -148,7 +148,6 @@ class Operation {
 // set global variables on page load
 let currentOperation = new Operation();
 let currentDisplay = new Display('', displayContentDiv);
-let previouslyDisplayed = []; // array used to store previously displayed value
 let inputQueue = []; // array used to store inputs prior to evaluation
 let operationStack = []; // array used to store previous operations
 
