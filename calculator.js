@@ -99,6 +99,26 @@ function handleNegation() {
     updateDisplay();
 }
 
+function handleEquals() {
+    // operation has a value in operandA but no operator
+    if (currentOperation.hasOperandA && !(currentOperation.hasOperator)) {
+        if (operationStack.length > 0) {  // there's at least one previous operation
+
+            // load previous operation's operator and operandB into current
+            let prevOperation = operationStack[-1];
+            currentOperation.operator = prevOperation.operator;
+            currentOperation.operandB = prevOperation.operandB;
+
+            // perform operation, set currentOperation to new Operation, and update display
+            let numberResult = currentOperation.operateExpression()
+            operationStack.push(currentOperation);
+            currentOperation = new Operation();
+            currentOperation.operandA = numberResult;
+            currentDisplay.updateDisplay(numberResult.toString(), true);
+        }
+    }
+}
+
 
 // display object
 const displayContentDiv = document.getElementById('display-content');
@@ -139,6 +159,19 @@ class Operation {
 
     loadOperandB(inputArray) {
         this.operandB = parseInt(inputArray.join(''));
+    }
+
+    hasOperator() {
+        // catches both null and undefined
+        return !(this.operator == null);
+    }
+
+    hasOperandA() {
+        return !(this.operandA == null);
+    }
+
+    hasOperandB() {
+        return !(this.operandB == null);
     }
 }
 
