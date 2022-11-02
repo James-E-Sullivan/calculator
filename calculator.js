@@ -34,21 +34,16 @@ function operate(operator, a, b) {
 }
 
 
-// display functions
+// eventListener handling functions
 function getNumberInput() {
     const buttons = document.querySelectorAll('button');
-
     buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
             let userInput = btn.getAttribute('id');
             handleUserInput(userInput);
-
-            // for testing
-            console.table(inputQueue);
         });
     });
 }
-
 
 function handleUserInput(input) {
 
@@ -58,20 +53,12 @@ function handleUserInput(input) {
     } else {
         switch (input) {
             case "add": case "subtract": case "multiply": case "divide":
-                // load inputQueue as operandA only if there are values there
-                if (inputQueue.length > 0) {
-                    currentOperation.loadOperandA(inputQueue);
-                    inputQueue.length = 0; // clear array
-                }
-                currentOperation.operator = input;
+                handleOperator();
                 break;
             
             case "clear":
                 // clear display and all data structures
-                inputQueue.length = 0;
-                operationStack.length = 0;
-                currentDisplay.updateDisplay('');
-                currentOperation = new Operation();
+                handleClear();
                 break;
             
             case "negate":
@@ -84,6 +71,15 @@ function handleUserInput(input) {
     }
 }
 
+function handleOperator() {
+    // load inputQueue as operandA only if not empty
+    if (inputQueue.length > 0) {
+        currentOperation.loadOperandA(inputQueue);
+        inputQueue.length = 0; // clear array
+    }
+    currentOperation.operator = input;
+}
+
 function handleNegation() {
     if (inputQueue[0] === "-") {
         inputQueue.shift();  // remove negative sign if present
@@ -93,10 +89,15 @@ function handleNegation() {
     currentDisplay.updateDisplay(inputQueue.join(''));
 }
 
-function handleEquals() {
+function handleClear() {
+    // clear display and all global datastructures/objects
+    inputQueue.length = 0;
+    operationStack.length = 0;
+    currentDisplay.updateDisplay('');
+    currentOperation = new Operation();
+}
 
-    console.log('Operation at beginning of handleEquals');
-    console.log(currentOperation);
+function handleEquals() {
 
     // operation has a value in operandA but no operator
     if (currentOperation.hasOperandA() && !(currentOperation.hasOperator())) {
@@ -104,10 +105,6 @@ function handleEquals() {
 
             // load previous operation's operator and operandB into current
             let prevOperation = operationStack[operationStack.length - 1];
-
-            console.log("operandA but no operator, with previous operation")
-            console.log(prevOperation);
-
             currentOperation.operator = prevOperation.operator;
             currentOperation.operandB = prevOperation.operandB;
 
@@ -121,9 +118,6 @@ function handleEquals() {
             inputQueue.length = 0;  // clear inputQueue
             performOperation();
         } else { // inputQueue is empty
-
-            console.log("hasOperandA and hasOperator, but inputQueue.length is 0")
-
             currentOperation.operandB = currentOperation.operandA;
             performOperation();
         }
@@ -142,10 +136,6 @@ function performOperation() {
     currentOperation.operandA = numberResult;
     currentDisplay.updateDisplay(numberResult.toString(), true);
 }
-
-
-// display object
-const displayContentDiv = document.getElementById('display-content');
 
 // Display class used to store information about/update the display
 class Display {
@@ -198,13 +188,15 @@ class Operation {
     }
 }
 
+
 // set global variables on page load
 let currentOperation = new Operation();
 let currentDisplay = new Display('', displayContentDiv);
 let inputQueue = []; // array used to store inputs prior to evaluation
 let operationStack = []; // array used to store previous operations
+const displayContentDiv = document.getElementById('display-content'); 
 
-// start on page load
+// start eventListener on page load
 getNumberInput();
 
 // for testing - do not touch
