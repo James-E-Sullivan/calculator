@@ -16,15 +16,23 @@ describe('add', () => {
     test('adds negative numbers', () => {
         expect(calculator.add(-3, -1)).toBe(-4);
     });
+
+    test('add non-numbers', () => {
+        expect(calculator.add("string", 8)).toBe("ERROR: NOT A NUMBER");
+    });
 });
 
-describe('add', () => {
+describe('subtract', () => {
     test('subtracts numbers', () => {
         expect(calculator.subtract(10,4)).toBe(6);
     });
 
     test('subtracts negative numbers', () => {
         expect(calculator.subtract(-3,-1)).toBe(-2);
+    });
+
+    test('subtract non-numbers', () => {
+        expect(calculator.subtract("string", 8)).toBe("ERROR: NOT A NUMBER");
     });
 });
 
@@ -39,6 +47,10 @@ describe('multiply', () => {
 
     test('multiply two negative numbers', () => {
         expect(calculator.multiply(-2, -3)).toBe(6);
+    });
+
+    test('multiply non-numbers', () => {
+        expect(calculator.multiply("string", 8)).toBe("ERROR: NOT A NUMBER");
     });
 });
 
@@ -57,5 +69,13 @@ describe('divide', () => {
 
     test('divide decimal numbers', () => {
         expect(calculator.divide(16.5, 8)).toBe(2.0625);
+    });
+
+    test('divide by zero', () => {
+        expect(calculator.divide(10,0)).toBe("DIVIDE BY ZERO ERROR");
+    });
+
+    test('divide non-numbers', () => {
+        expect(calculator.divide("string", 8)).toBe("ERROR: NOT A NUMBER");
     });
 });
