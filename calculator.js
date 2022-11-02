@@ -62,8 +62,6 @@ function handleUserInput(input) {
                 currentOperation.loadOperandA(inputQueue);
                 inputQueue.length = 0; // clear array
                 currentOperation.operator = input;
-
-                console.log(currentOperation);
                 break;
             
             case "clear":
@@ -93,25 +91,36 @@ function handleNegation() {
 }
 
 function handleEquals() {
+
+    console.log('Operation at beginning of handleEquals');
+    console.log(currentOperation);
+
     // operation has a value in operandA but no operator
-    if (currentOperation.hasOperandA && !(currentOperation.hasOperator)) {
+    if (currentOperation.hasOperandA() && !(currentOperation.hasOperator())) {
         if (operationStack.length > 0) {  // there's at least one previous operation
 
             // load previous operation's operator and operandB into current
-            let prevOperation = operationStack[-1];
+            let prevOperation = operationStack[operationStack.length - 1];
+
+            console.log("operandA but no operator, with previous operation")
+            console.log(prevOperation);
+
             currentOperation.operator = prevOperation.operator;
             currentOperation.operandB = prevOperation.operandB;
 
             // perform operation now that the operator and operands are set
             performOperation();
         }
-    } else if (currentOperation.hasOperandA && currentOperation.hasOperator) {
+    } else if (currentOperation.hasOperandA() && currentOperation.hasOperator()) {
         // operation operandA and an operator, and inputQueue has input values
         if (inputQueue.length > 0) {
             currentOperation.loadOperandB(inputQueue);
             inputQueue.length = 0;  // clear inputQueue
             performOperation();
         } else { // inputQueue is empty
+
+            console.log("hasOperandA and hasOperator, but inputQueue.length is 0")
+
             currentOperation.operandB = currentOperation.operandA;
             performOperation();
         }
@@ -119,6 +128,10 @@ function handleEquals() {
 }
 
 function performOperation() {
+
+    console.log("Operation at its performance:")
+    console.log(currentOperation);
+
     // perform operation, set currentOperation to new Operation, and update display
     let numberResult = currentOperation.operateExpression()
     operationStack.push(currentOperation);
@@ -170,16 +183,15 @@ class Operation {
     }
 
     hasOperator() {
-        // catches both null and undefined
-        return !(this.operator == null);
+        return !(this.operator === undefined);
     }
 
     hasOperandA() {
-        return !(this.operandA == null);
+        return !(this.operandA === undefined);
     }
 
     hasOperandB() {
-        return !(this.operandB == null);
+        return !(this.operandB === undefined);
     }
 }
 
