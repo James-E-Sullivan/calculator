@@ -58,8 +58,10 @@ function handleUserInput(input) {
         updateDisplay();
     } else {
         switch (input) {
-            case "add", "subtract", "multiply", "divide":
+            case "add": case "subtract": case "multiply": case "divide":
                 unloadInputQueue();
+                currentOperation.operandA = parseInt(previouslyDisplayed.join(''));
+                currentOperation.operator = input;
                 break;
             
             case "clear":
@@ -72,6 +74,15 @@ function handleUserInput(input) {
             
             case "negate":
                 handleNegation();
+                break;
+            
+            case "equals":
+                unloadInputQueue();
+                currentOperation.operandB = parseInt(previouslyDisplayed.join(''));
+                console.log(currentOperation);
+                let resultNumber = currentOperation.operateExpression();
+                displayAnswer(resultNumber.toString());
+
         }
     }
 }
@@ -79,6 +90,10 @@ function handleUserInput(input) {
 function updateDisplay() {
     const displayString = inputQueue.join('');
     displayContent.innerText = displayString;
+}
+
+function displayAnswer(answerString) {
+    displayContent.innerText = answerString;
 }
 
 
@@ -124,9 +139,11 @@ class Operation {
     }
 
     operateExpression() {
-        return operate(operator, this.operandA, this.operandB);
+        return operate(this.operator, this.operandA, this.operandB);
     }
 }
+
+let currentOperation = new Operation();
 
 
 // start on page load
