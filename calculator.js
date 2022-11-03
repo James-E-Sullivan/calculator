@@ -37,7 +37,7 @@ function operate(operator, a, b) {
 
 
 // eventListener handling functions
-function getNumberInput() {
+function getButtonInput() {
     const buttons = document.querySelectorAll('button');
     buttons.forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -280,7 +280,7 @@ let operationStack = []; // array used to store previous operations
 
 
 // start eventListener on page load
-getNumberInput();
+getButtonInput();
 
 // for testing - do not touch
 module.exports = {
