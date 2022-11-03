@@ -47,6 +47,46 @@ function getButtonInput() {
     });
 }
 
+function getKeyboardInput() {
+    addEventListener('keydown', (e) => {
+        const numberKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+        const operatorKeys = ['+', '-', '*', '/', '=', 'Enter']
+        const calcKeys = ['c', 'C', '!', 'Backspace']
+
+        const keyMap = new Map([
+            ['0', '0'],
+            ['1', '1'],
+            ['2', '2'],
+            ['3', '3'],
+            ['4', '4'],
+            ['5', '5'],
+            ['6', '6'],
+            ['7', '7'],
+            ['8', '8'],
+            ['9', '9'],
+            ['.', 'decimal'],
+            ['+', 'add'],
+            ['-', 'subtract'],
+            ['*', 'multiply'],
+            ['/', 'divide'],
+            ['=', 'equals'],
+            ['Enter', 'equals'],
+            ['c', 'clear'],
+            ['C', 'clear'],
+            ['!', 'negate'],
+            ['Backspace', 'undo']
+        ]);
+
+        let userInput = `${e.key}`;
+        console.log(userInput);
+        const mapKeys = [...keyMap.keys()];
+        
+        if (mapKeys.includes(userInput)) {
+            handleUserInput(keyMap.get(userInput));
+        }
+    });
+}
+
 function handleUserInput(input) {
 
     if (!isNaN(parseInt(input))){  // input is a number
@@ -281,6 +321,7 @@ let operationStack = []; // array used to store previous operations
 
 // start eventListener on page load
 getButtonInput();
+getKeyboardInput();
 
 // for testing - do not touch
 module.exports = {
