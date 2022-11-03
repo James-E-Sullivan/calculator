@@ -99,7 +99,7 @@ function handleOperator(operatorInput) {
 function handleNegation() {
     if (currentDisplay.isAnswerDisplayed()) {
         currentOperation.operandA *= -1;
-        currentDisplay.updateDisplay(currentOperation.operandA, true);
+        currentDisplay.updateDisplay(currentOperation.operandA.toString(), true);
     } else {
         if (inputQueue[0] === "-") {
             inputQueue.shift();  // remove negative sign if present
@@ -160,12 +160,12 @@ function handleUndo() {
     // if an operator button is pressed, undo button removes operator from Operation
     if (currentOperation.hasOperator()) {
         currentOperation.operator = null;
-        currentDisplay.updateDisplay(currentOperation.operandA);
+        currentDisplay.updateDisplay(currentOperation.operandA.toString());
     } else if (operationStack.length > 0) { // reset to last operation
         currentOperation = operationStack.pop();
         currentOperation.operandB = null;
         currentOperation.operator = null;
-        currentDisplay.updateDisplay(currentOperation.operandA);
+        currentDisplay.updateDisplay(currentOperation.operandA.toString());
         inputQueue.length = 0;
     } else { // no previous operations - just remove what is on the display
         inputQueue.length = 0;
@@ -194,18 +194,15 @@ class Display {
         if (displayString.length > 18) {  // display string too large
             let decimalIndex;
             let exponentialIndex;
-            let hasDecimal = false;
             for (let i = 0; i < displayString.length; i++) {
                 if (displayString[i] === ".") { // decimal in string
-                    hasDecimal = true;
                     decimalIndex = i;
                 }
                 if (displayString[i] === "e") { // exponential notation
                     exponentialIndex = i;
                 }
             }
-
-            if (exponentialIndex != null) {
+            if (exponentialIndex != null) {  // the number is in exponential notation
                 let split = displayString.split('e');
                 let before = split[0]; // before 'e'
                 let after = split[1]; // after 'e'
