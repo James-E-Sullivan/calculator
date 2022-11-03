@@ -191,6 +191,38 @@ class Display {
     }
 
     updateDisplay(displayString, isAnswer=false) {
+        if (displayString.length > 18) {  // display string too large
+            let decimalIndex;
+            let exponentialIndex;
+            let hasDecimal = false;
+            for (let i = 0; i < displayString.length; i++) {
+                if (displayString[i] === ".") { // decimal in string
+                    hasDecimal = true;
+                    decimalIndex = i;
+                }
+                if (displayString[i] === "e") { // exponential notation
+                    exponentialIndex = i;
+                }
+            }
+
+            if (exponentialIndex != null) {
+                let split = displayString.split('e');
+                let before = split[0]; // before 'e'
+                let after = split[1]; // after 'e'
+                let allowedLength = 17 - after.length - 2;
+                let splitNumber = parseFloat(before);
+                let smallNumber = splitNumber.toFixed(allowedLength);
+                displayString = smallNumber + 'e' + after;
+            } else if (decimalIndex != null && decimalIndex < 17) { // there's a decimal but no 'e'
+                    let allowedDecimals = 17 - decimalIndex - 1;
+                    let displayFloat = parseFloat(displayString); // string into float
+                    displayString = displayFloat.toFixed(allowedDecimals); // toFixed returns string
+            } else {
+                let displayNumber = parseInt(displayString);
+                displayNumber = displayNumber.toExponential(6);
+                displayString = displayNumber.toString();
+            }            
+        }
         this.displayString = displayString;
         this.isAnswer = isAnswer;
         this.displayElement.innerText = this.displayString;
