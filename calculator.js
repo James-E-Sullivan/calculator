@@ -34,8 +34,6 @@ function operate(operator, a, b) {
 }
 
 
-
-
 // eventListener handling functions
 function getButtonInput() {
     const buttons = document.querySelectorAll('button');
@@ -49,10 +47,7 @@ function getButtonInput() {
 
 function getKeyboardInput() {
     addEventListener('keydown', (e) => {
-        const numberKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
-        const operatorKeys = ['+', '-', '*', '/', '=', 'Enter']
-        const calcKeys = ['c', 'C', '!', 'Backspace']
-
+        
         const keyMap = new Map([
             ['0', '0'],
             ['1', '1'],
@@ -319,7 +314,7 @@ let inputQueue = []; // array used to store inputs prior to evaluation
 let operationStack = []; // array used to store previous operations
 
 
-// start eventListener on page load
+// start eventListeners on page load
 getButtonInput();
 getKeyboardInput();
 
